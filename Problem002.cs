@@ -26,12 +26,10 @@ class Problem002
         int limit = 4000000;
         // MakeFibo(limit);
         var fiboList = CreateFiboList(limit);
+        var EvenFiboSum = fiboList.Where(n => n % 2 == 0);
+        Console.WriteLine(string.Join(",",EvenFiboSum));
+        Console.WriteLine("Sume: " + EvenFiboSum.Sum());
 
-        foreach (var item in fiboList)
-        {
-            Console.Write(item + " ");
-            
-        }
     }
 
     public static List<int> CreateFiboList(int limit)
