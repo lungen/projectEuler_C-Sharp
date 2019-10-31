@@ -11,8 +11,10 @@ namespace projectEuler
             // var p = new Problem001();
             // p.Run();
 
-            var p2 = new Problem002();
-            p2.Run();
+            // var p2 = new Problem002();
+            // p2.Run();
+
+            Problem003.Run();
         }
     }
 }
