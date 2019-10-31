@@ -49,6 +49,5 @@ Find the largest palindrome made from the product of two 3-digit numbers.
 
          Console.WriteLine("fin linq: ");
          Console.WriteLine("max palindrome: " + palindromeResults.Max());
-
      }
  }
