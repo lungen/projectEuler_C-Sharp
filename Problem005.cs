@@ -67,8 +67,29 @@ class Problem005
         var dividors = Problem005.GetDividor();
         var number = Problem005.GetNumber();
 
-        var test = number.Zip(dividors, (x1, x2) => x1 % x2 == 0);
-        Console.WriteLine(string.Join(", ", test));
+        var test = from n in number
+                    // join d in dividors on n equals n % d == 0
+                    from d in dividors
+                    where n % d == 0
+                    select new {
+                        Name = n.ToString(),
+                        Dividors = d                    
+                    };
+
+        var test2 = from result in test 
+                    group result by result.Name;
+
+
+        // Console.WriteLine(string.Join(", ", test));
+        foreach(var k in test2)
+        {
+            if(k.Count() == 10)
+            {
+                Console.WriteLine(k.Key + " " +  k.Count());
+                foreach(var v in k)
+                    Console.WriteLine(v);
+            }
+        }
     }
 
 public class NumbersGenerator
