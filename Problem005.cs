@@ -1,4 +1,6 @@
-using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks.Dataflow;
+using System.Collections;
 /*
 Smallest multiple
    
@@ -15,61 +17,80 @@ using System.Collections.Generic;
 
 class Problem005
 {
+
     public static void Run()
     {
-        ulong result = 1;
+        bool stop = false;
+        ulong n = 200;
+        int add = 20;
 
-        int n = 1;
-
-        // get the maximal number
-        while(n<=10)
+        while(!stop)
         {
-            result *= (ulong)n;
-            Console.WriteLine("n: {0}. result: {1}", n, result);
-            n++;
-        }
-        while(result > 100)
-        {
-            Console.WriteLine(ModuloResult(result, 10));
-            result -= 100;
-        }
-
-/* 
-        ulong newResult = result;
-
-        while(newResult % (ulong)20 == 0)
-        {
-            newResult = newResult / (ulong)20;
-            Console.WriteLine(newResult);
-
-            while(newResult % (ulong)19 == 0)
+            for (int i = add; i > 0; i--)
             {
-                newResult = newResult / (ulong)19;
-                Console.WriteLine(newResult);
-            }
-        }
-        */
+                if(n % (ulong)i == 0)
+                {
+                    if(i==1)
+                    {
+                        Console.WriteLine("bingo: " + n);
+                        stop = true;
+                    }
+                    continue;
 
-        ulong ModuloResult(ulong number, int modulo)
-        {
-            if(modulo == 1)
-            {
-                // Console.WriteLine("fin recursion");
-                Console.WriteLine("Number: {0}, modulo: {1}", number, modulo);
-                return number;
+                }
+                else
+                    break;
+                
             }
-
-            ulong newNumber = number;
-
-            while(newNumber % (ulong)modulo == 0)
-            {
-                Console.WriteLine("Number: {0}, modulo: {1}", newNumber, modulo);
-                newNumber = newNumber / (ulong)modulo;
-                return ModuloResult(newNumber, modulo-1);
-            }
-                // return number * ModuloResult(result, modulo-1);
-                // return number * ModuloResult((number / (ulong)modulo), modulo-1);
-                return ModuloResult(newNumber, modulo-1);
+            n += (ulong)add;
         }
     }
+    public static IEnumerable<int> GetDividor()
+    {
+        for (int i = 10; i > 0; i--)
+        {
+            yield return i;
+        }
+    }
+
+    public static IEnumerable<int> GetNumber()
+    {
+        int n = 0;
+        while(n < 10000)
+        {
+            yield return n += 10;
+        }
+
+    }
+    public static void Run_2()
+    {
+        var dividors = Problem005.GetDividor();
+        var number = Problem005.GetNumber();
+
+        var test = number.Zip(dividors, (x1, x2) => x1 % x2 == 0);
+        Console.WriteLine(string.Join(", ", test));
+    }
+
+public class NumbersGenerator
+{
+    int limit = 0;
+    public NumbersGenerator(int n)
+    {
+        limit = n;
+    }
+    public IEnumerator<int> GetEnumerator()
+    {
+        // IEnumerable<int> myEnum = NextNumber();
+        // return myEnum.GetEnumerator();
+        return NextNumber();
+    }
+
+    public IEnumerator<int> NextNumber()
+    {
+        for (int i = limit; i > 0; i--)
+        {
+            yield return i;
+        }
+    }
+  }
 }

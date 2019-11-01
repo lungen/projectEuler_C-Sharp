@@ -17,8 +17,8 @@ namespace projectEuler
             // Problem003.Run();
             // Problem004.Run();
 
-            Problem005.Run();
-
+            // Problem005.Run();
+            Problem005.Run_2();
 
         }
     }
