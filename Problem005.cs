@@ -1,6 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks.Dataflow;
-using System.Collections;
 /*
 Smallest multiple
    
@@ -14,10 +11,15 @@ What is the smallest positive number that is evenly divisible by all of the numb
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 
 class Problem005
 {
 
+
+/// <summary>
+/// classic solution
+/// </summary>
     public static void Run()
     {
         bool stop = false;
@@ -45,7 +47,23 @@ class Problem005
             n += (ulong)add;
         }
     }
-    public static IEnumerable<int> GetDividor()
+
+    public static ulong GetMaxNumber()
+    {
+        int counter = 20;
+        ulong number = 1;
+
+        while(counter > 0 )
+        {
+            number *= (ulong)counter;
+            counter--;
+        }
+
+        Console.WriteLine("Max ulong number: " + number);
+
+        return number;
+    }
+    public static IEnumerable<int> GetDivider()
     {
         for (int i = 10; i > 0; i--)
         {
@@ -60,20 +78,19 @@ class Problem005
         {
             yield return n += 10;
         }
-
     }
+
     public static void Run_2()
     {
-        var dividors = Problem005.GetDividor();
+        var Dividers = Problem005.GetDivider();
         var number = Problem005.GetNumber();
 
         var test = from n in number
-                    // join d in dividors on n equals n % d == 0
-                    from d in dividors
+                    from d in Dividers
                     where n % d == 0
                     select new {
                         Name = n.ToString(),
-                        Dividors = d                    
+                        Dividers = d                    
                     };
 
         var test2 = from result in test 
