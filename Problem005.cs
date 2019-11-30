@@ -11,7 +11,6 @@ What is the smallest positive number that is evenly divisible by all of the numb
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Collections;
 
 class Problem005
 {
