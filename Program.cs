@@ -23,7 +23,10 @@ namespace projectEuler
             // Problem006.Run();
 
             // solved
-            Problem007.Run();
+            // Problem007.Run();
+
+            // solved
+            // Problem008.Run();
 
         }
     }
