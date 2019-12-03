@@ -28,6 +28,8 @@ namespace projectEuler
             // solved
             // Problem008.Run();
 
+            Problem009.Run();
+
         }
     }
 }
